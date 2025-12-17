@@ -1,39 +1,39 @@
 [
     {
         "id": 1,
-        "ad": "Gezegenler Arası Yolculuk",
-        "tur": "Bilim Kurgu",
-        "yil": 2021,
-        "puan": 8.5,
-        "ozet": "Uzaydaki yaşam arayışının zorlukları ve bilinmeyen bir gezegende mahsur kalma hikayesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+1"
+        "ad": "Ayla",
+        "tur": "Dram",
+        "yil": 2017,
+        "puan": 8.3,
+        "ozet": "Kore Savaşı sırasında Türk askeri Süleyman'ın yetim bir Koreli kızı bulup ona sahip çıkmasını konu alan gerçek bir hayat hikayesi.",
+        "posterUrl": "afiş/ayla.jpg"
     },
     {
         "id": 2,
-        "ad": "Son Şövalye",
-        "tur": "Fantastik",
-        "yil": 2023,
-        "puan": 9.1,
-        "ozet": "Antik bir kehanetin son şövalyesi, krallığı karanlık güçlerden kurtarmak zorundadır.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+2"
+        "ad": "Babam ve Oğlum",
+        "tur": "Dram",
+        "yil": 2005,
+        "puan": 8.2,
+        "ozet": "Ege'deki aile çiftliğinden ayrılan Sadık'ın, yıllar sonra oğlu Deniz ile birlikte babasının evine dönmesi ve aile bağlarının yeniden kurulması.",
+        "posterUrl": "afiş/babam.jpg"
     },
     {
         "id": 3,
-        "ad": "Büyük Kaçış",
-        "tur": "Aksiyon",
-        "yil": 2015,
-        "puan": 7.8,
-        "ozet": "Yanlış suçlanan bir adamın hapishaneden kaçış ve adını temize çıkarma hikayesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+3"
+        "ad": "Şirinler",
+        "tur": "Animasyon",
+        "yil": 2011,
+        "puan": 5.4,
+        "ozet": "Kötü büyücü Gargamel'den kaçan Şirinler'in kazara New York'taki Central Park'a düşmesi ve köylerine dönme çabaları.",
+        "posterUrl": "afiş/sirinler.jpg"
     },
-    {
+     {
         "id": 4,
         "ad": "Labirent: Son İsyan",
         "tur": "Bilim Kurgu",
         "yil": 2018,
         "puan": 7.5,
         "ozet": "Thomas ve Kayranlılar, Labirent'ten kaçtıktan sonra bulmaya çalıştıkları tedavi için son görevlerine çıkar.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+4"
+        "posterUrl": "afiş/labirent.jpg"
     },
     {
         "id": 6,
@@ -42,7 +42,7 @@
         "yil": 1994,
         "puan": 9.3,
         "ozet": "Haksız yere hapse giren bir bankacının hapishane duvarları arasında umudu yeşertme ve yıllar süren kaçış planı.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+6"
+        "posterUrl": "afiş/esaret.jpg"
     },
     {
         "id": 8,
@@ -51,7 +51,7 @@
         "yil": 2014,
         "puan": 8.6,
         "ozet": "Dünya'daki yaşamın sonu yaklaşırken, bir grup kaşif, insanlığın hayatta kalması için uzayda yeni bir yuva aramak üzere bir solucan deliğinden geçer.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+8"
+        "posterUrl": "afiş/yıldızlararası.jpg"
     },
     {
         "id": 9,
@@ -60,7 +60,7 @@
         "yil": 1999,
         "puan": 8.7,
         "ozet": "Bir bilgisayar programcısı, yaşadığı dünyanın aslında Matrix adlı simülasyon olduğunu öğrenir ve insanlığın kurtuluşu için savaşmaya başlar.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+9"
+        "posterUrl": "afiş/matrix.jpg"
     },
     {
         "id": 10,
@@ -69,7 +69,7 @@
         "yil": 2000,
         "puan": 6.2,
         "ozet": "Noel'den nefret eden huysuz Grinç'in, Whoville kasabasının Noel neşesini çalma girişimi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+10"
+        "posterUrl": "afiş/grinc.jpg"
     },
     {
         "id": 11,
@@ -78,7 +78,7 @@
         "yil": 2004,
         "puan": 7.9,
         "ozet": "Harry Potter'ın Hogwarts'taki üçüncü yılında, Azkaban hapishanesinden kaçan tehlikeli Sirius Black'in peşine düşmesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+11"
+        "posterUrl": "afiş/hp3.jpg"
     },
     {
         "id": 12,
@@ -87,7 +87,7 @@
         "yil": 1990,
         "puan": 7.6,
         "ozet": "Tatil için Paris'e giden ailesi tarafından evde unutulan küçük Kevin'ın evi hırsızlardan koruma mücadelesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+12"
+        "posterUrl": "afiş/evde_tek.jpg"
     },
     {
         "id": 13,
@@ -96,7 +96,7 @@
         "yil": 2013,
         "puan": 7.5,
         "ozet": "Paranormal olay araştırmacıları Ed ve Lorraine Warren'ın, perili bir çiftlik evinde yaşanan korkutucu vakayı incelemesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+13"
+        "posterUrl": "afiş/korkuseansi.jpg"
     },
     {
         "id": 14,
@@ -105,7 +105,7 @@
         "yil": 2015,
         "puan": 8.1,
         "ozet": "Genç bir kızın zihnindeki duyguların (Neşe, Üzüntü, Öfke, Korku, Tiksinti) kızın hayatındaki değişikliklere uyum sağlaması için verdiği mücadele.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+14"
+        "posterUrl":"afiş/tersyuz.jpg"
     },
     {
         "id": 15,
@@ -114,7 +114,7 @@
         "yil": 2005,
         "puan": 7.8,
         "ozet": "Jane Austen'ın ünlü romanından uyarlanan filmde, Elizabeth Bennet ve Mr. Darcy'nin yanlış anlamalarla dolu aşk hikayesi anlatılır.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+15"
+        "posterUrl": "afiş/askvegurur.jpg"
     },
     {
         "id": 16,
@@ -123,7 +123,7 @@
         "yil": 2002,
         "puan": 8.5,
         "ozet": "II. Dünya Savaşı sırasında Varşova'nın yıkımından sağ kurtulmaya çalışan Polonyalı Yahudi piyanist Władysław Szpilman'ın gerçek hikayesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+16"
+        "posterUrl": "afiş/piyanist.jpg"
     },
     {
         "id": 17,
@@ -132,7 +132,7 @@
         "yil": 2019,
         "puan": 8.4,
         "ozet": "Toplum tarafından dışlanan Arthur Fleck'in, kötü şöhretli suç dehası Joker'e dönüşüm hikayesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+17"
+        "posterUrl": "afiş/joker.jpg"
     },
     {
         "id": 18,
@@ -141,7 +141,7 @@
         "yil": 2015,
         "puan": 5.9,
         "ozet": "Müzikle ilgilenen Barış ve hırslı Hukuk öğrencisi Füsun'un tutkulu ve dramatik aşk hikayesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+18"
+        "posterUrl": "afiş/delibal.jpg"
     },
     {
         "id": 20,
@@ -150,7 +150,7 @@
         "yil": 2001,
         "puan": 7.6,
         "ozet": "Yetim Harry Potter'ın on birinci doğum gününde Hogwarts Cadılık ve Büyücülük Okulu'na kabul edilmesi ve sihirli dünyaya girişi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+20"
+        "posterUrl": "afiş/hp1.jpg"
     },
     {
         "id": 21,
@@ -159,7 +159,7 @@
         "yil": 2024,
         "puan": 7.8,
         "ozet": "Riley ergenlik çağına girerken, Neşe, Üzüntü ve diğer duygular yeni, beklenmedik duygularla (Kaygı gibi) tanışmak zorundadır.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+21"
+        "posterUrl": "afiş/ters2.jpg"
     },
     {
         "id": 22,
@@ -168,7 +168,7 @@
         "yil": 2002,
         "puan": 7.4,
         "ozet": "Harry'nin ikinci yılında Hogwarts'ta gizemli olaylar yaşanır ve Sırlar Odası'nın sırrı ortaya çıkmaya başlar.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+22"
+        "posterUrl": "afiş/hp2.jpg"
     },
     {
         "id": 23,
@@ -177,7 +177,7 @@
         "yil": 2005,
         "puan": 7.7,
         "ozet": "Hogwarts'ta düzenlenen Üç Büyücü Turnuvası, Harry'nin adının beklenmedik şekilde kadehten çıkmasıyla tehlikeli bir hal alır.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+23"
+        "posterUrl": "afiş/hp4.jpg"
     },
     {
         "id": 24,
@@ -186,7 +186,7 @@
         "yil": 2007,
         "puan": 7.5,
         "ozet": "Bakanlık, Lord Voldemort'un geri döndüğüne inanmazken, Harry gizlice bir öğrenci ordusu kurar.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+24"
+        "posterUrl": "afiş/hp5.jpg"
     },
     {
         "id": 25,
@@ -195,7 +195,7 @@
         "yil": 2009,
         "puan": 7.6,
         "ozet": "Harry, Dumbledore'un yardımıyla Voldemort'un geçmişini araştırırken, yeni bir ders kitabında gizemli 'Melez Prens'in notlarını bulur.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+25"
+        "posterUrl": "afiş/hp6.jpg"
     },
     {
         "id": 26,
@@ -204,7 +204,7 @@
         "yil": 2010,
         "puan": 7.7,
         "ozet": "Harry, Ron ve Hermione, Voldemort'un ölümsüzlük sırrı olan Hortkulukları bulmak ve yok etmek için yola çıkar.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+26"
+        "posterUrl": "afiş/hp7.jpg"
     },
     {
         "id": 27,
@@ -213,7 +213,7 @@
         "yil": 2011,
         "puan": 8.1,
         "ozet": "Savaş, Hortkulukların sonuncularını bulmak için Hogwarts'a taşınır ve Harry ile Voldemort arasındaki son yüzleşme gerçekleşir.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+27"
+        "posterUrl": "afiş/hp8.jpg"
     },
     {
         "id": 28,
@@ -222,7 +222,7 @@
         "yil": 2014,
         "puan": 7.7,
         "ozet": "Kanserle mücadele eden iki gencin, Hayatta Kalma Grubunda tanıştıktan sonra birbirlerine aşık olmaları.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+28"
+        "posterUrl": "afiş/ayniyildizinaltinda.jpg"
     },
     {
         "id": 29,
@@ -231,7 +231,7 @@
         "yil": 2017,
         "puan": 7.3,
         "ozet": "Küçük bir kasabada kaybolan çocukların peşine düşen bir grup arkadaşın, Pennywise adında şekil değiştiren bir palyaçoyla yüzleşmesi.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+29"
+        "posterUrl": "afiş/ıt.jpg"
     },
     {
         "id": 30,
@@ -240,6 +240,6 @@
         "yil": 2019,
         "puan": 6.5,
         "ozet": "İlk filmdeki olaylardan 27 yıl sonra, Pennywise'ın geri dönmesiyle Yetişkinler Kulübü, verdikleri sözü tutmak için kasabaya geri döner.",
-        "posterUrl": "https://via.placeholder.com/200x300?text=Poster+30"
+        "posterUrl": "afiş/it2.jpg"
     }
 ]
