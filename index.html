@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnteraktif Medya Kitaplığı (SPA)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <header>
+        <h1>Medya Kitaplığım</h1>
+    </header>
+
+    <main class="container">
+        <div class="app-content">
+            <div class="navbar">
+                <a href="#" id="show-all" class="active">Tümü</a>
+                <a href="#" id="show-favorites">Favorilerim</a>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Film/Dizi Ara...">
+            </div>
+
+            <div class="genre-filter-container" id="genre-filter-container">
+                </div>
+            
+            <section id="media-container" class="media-grid">
+                </section>
+        </div>
+
+        <section id="detail-view" class="detail-view-container" style="display: none;">
+            </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
