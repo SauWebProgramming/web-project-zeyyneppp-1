@@ -1,20 +1,17 @@
-/* ======================================================= */
-/* TEMEL STİLLER VE RESET */
-/* ======================================================= */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f7f6;
+    background-color: #292828;
     color: #333;
 }
 
 header {
-    background-color: #2c3e50;
+    background-color: #0c0c0c;
     color: white;
     padding: 20px 0;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(102, 101, 101, 0.1);
 }
 
 .container {
@@ -23,20 +20,17 @@ header {
     padding: 20px;
 }
 
-/* ======================================================= */
-/* NAVİGASYON VE ARAMA */
-/* ======================================================= */
 
 .navbar {
     display: flex;
     justify-content: flex-start;
     padding: 10px 0;
-    border-bottom: 2px solid #bdc3c7;
+    border-bottom: 2px solid #f39c12;
 }
 
 .navbar a {
     text-decoration: none;
-    color: #2c3e50;
+    color: #f39c12;
     padding: 10px 15px;
     margin-right: 5px;
     font-weight: bold;
@@ -45,8 +39,8 @@ header {
 
 .navbar a:hover,
 .navbar a.active {
-    background-color: #2ecc71;
-    color: white;
+    background-color: #cc312e;
+    color: #444341;
     border-radius: 5px;
 }
 
@@ -57,15 +51,11 @@ header {
 #search-input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #f39c12;
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
 }
-
-/* ======================================================= */
-/* LİSTE GÖRÜNÜMÜ (CSS Grid / Flexbox Zorunlu) */
-/* ======================================================= */
 
 .media-grid {
     display: grid;
@@ -76,9 +66,9 @@ header {
 }
 
 .media-card {
-    background-color: white;
+    background-color: rgb(69, 68, 68);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(103, 102, 102, 0.1);
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
@@ -88,7 +78,7 @@ header {
 
 .media-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(148, 142, 142, 0.15);
 }
 
 .media-card img {
@@ -100,16 +90,17 @@ header {
 .media-card h3 {
     margin: 10px;
     font-size: 1.2em;
+    color:#f39c12
 }
 
 .media-card p {
     margin: 0 10px 5px;
     font-size: 0.9em;
-    color: #555;
+    color: #fffafa;
 }
 
 .favorite-btn {
-    background-color: #2ecc71;
+    background-color: #9b1d16;
     color: white;
     border: none;
     padding: 10px;
@@ -122,12 +113,9 @@ header {
 }
 
 .favorite-btn:hover {
-    background-color: #27ae60;
+    background-color: #ae5b27;
 }
 
-/* ======================================================= */
-/* DETAY SAYFASI GÖRÜNÜMÜ (SPA) */
-/* ======================================================= */
 
 .detail-view-container {
     padding: 20px;
@@ -174,7 +162,7 @@ header {
 .back-btn {
     background: none;
     border: none;
-    color: #3498db;
+    color: #e13d38;
     cursor: pointer;
     font-size: 1em;
     font-weight: bold;
@@ -183,9 +171,6 @@ header {
     margin-bottom: 20px;
 }
 
-/* ======================================================= */
-/* EK PUAN MADDESİ: FAVORİ GÖRSEL İPUCU */
-/* ======================================================= */
 
 /* Favori olan kartın kenarlık rengini değiştirme */
 .media-card.is-favorite {
@@ -200,18 +185,14 @@ header {
 }
 
 
-/* ======================================================= */
-/* EK PUAN: TÜR FİLTRELEME STİLLERİ */
-/* ======================================================= */
-
 .genre-filter-container {
     padding: 15px 10px;
     display: flex;
     flex-wrap: wrap; 
     gap: 8px; 
     justify-content: center;
-    background-color: #ecf0f1; 
-    border-bottom: 1px solid #ddd;
+    background-color: #292828; 
+    border-bottom: 1px solid #403e3e;
 }
 
 .genre-btn {
@@ -219,7 +200,7 @@ header {
     border: 1px solid #bdc3c7;
     border-radius: 20px;
     background-color: #fff;
-    color: #2c3e50;
+    color: #4594e2;
     cursor: pointer;
     font-size: 14px;
     transition: all 0.2s ease;
@@ -231,9 +212,9 @@ header {
 }
 
 .genre-btn.active {
-    background-color: #2ecc71; 
+    background-color: #9b1d16; 
     color: white;
-    border-color: #27ae60;
+    border-color: #ae3a3a;
     font-weight: bold;
 }
 
