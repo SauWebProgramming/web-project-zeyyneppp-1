@@ -162,3 +162,4 @@ function generateGenreButtons() {
 }
 
 fetchMedia();
+
