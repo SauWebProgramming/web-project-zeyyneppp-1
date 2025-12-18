@@ -6,36 +6,25 @@
     <title>İnteraktif Medya Kitaplığı | Zeynep Çiftçi</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <div class="header-container">
+        <div class="header-content">
             <h1>EN ÇOK İZLENEN FİLMLER</h1>
-            <div class="search-sort-section">
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" placeholder="Film, dizi veya oyuncu ara...">
-                </div>
-                
-                <div class="sort-wrapper">
-                    <label for="sortSelect">Sıralama Seçenekleri:</label>
-                    <select id="sortSelect" class="styled-select">
-                        <option value="default">Varsayılan (Önerilen)</option>
-                        <option value="yil-yeni">Yıla Göre (Yeniden Eskiyeye)</option>
-                        <option value="yil-eski">Yıla Göre (Eskiden Yeniye)</option>
-                        <option value="puan-cok">Puan (En Yüksekten En Düşüğe)</option>
-                        <option value="puan-az">Puan (En Düşükten En Yükseğe)</option>
-                    </select>
+            <div class="search-sort-container">
+                <input type="text" id="searchInput" placeholder="Film veya Dizi Ara...">
+                <div class="sort-buttons">
+                    <button id="sortByPuan" class="sort-btn">⭐ Puana Göre Sırala</button>
+                    <button id="sortByYil" class="sort-btn">📅 Yıla Göre Sırala</button>
                 </div>
             </div>
         </div>
     </header>
 
     <nav>
-        <div class="filter-wrapper">
+        <div class="filter-buttons">
             <button class="filter-btn active" data-genre="all">Tümü</button>
             <button class="filter-btn" data-genre="favoriler">❤️ Favorilerim</button>
             <button class="filter-btn" data-genre="Dram">Dram</button>
@@ -48,11 +37,16 @@
         </div>
     </nav>
 
-    <main>
-        <div id="media-container" class="grid-layout"></div>
-    </main>
+    <main id="media-container" class="grid-container">
+        </main>
 
-    <div id="movieModal" class="modal-overlay">
-        <div class="modal-box">
-            <span class="close-modal">&times;</span>
-            <div
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="modal-details"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

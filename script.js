@@ -1,193 +1,192 @@
+/**
+ * ************************************************************
+ * INTERAKTIF MEDYA KITAPLIGI - JAVASCRIPT MOTORU
+ * ************************************************************
+ */
 
+let allMediaData = []; // Veri setini tutar
+let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Favorileri LocalStorage'dan çeker
 
-let masterData = []; // Ana veritabanı
-let myFavorites = JSON.parse(localStorage.getItem('my_fav_list')) || []; // Yerel depolama
-
-// HTML Elemanları
-const container = document.getElementById('media-container');
+// DOM Elementleri
+const mediaContainer = document.getElementById('media-container');
 const searchInput = document.getElementById('searchInput');
-const sortSelect = document.getElementById('sortSelect');
-const modalOverlay = document.getElementById('movieModal');
-const modalBody = document.getElementById('modal-details-content');
-const closeBtn = document.querySelector('.close-modal');
+const modal = document.getElementById('movieModal');
+const modalDetails = document.getElementById('modal-details');
+const closeBtn = document.querySelector('.close-button');
 
 /**
- * 1. VERI YÜKLEME (DATA FETCH)
+ * 1. VERİLERİ ÇEKME (FETCH)
  */
-async function initializeApp() {
+async function loadMediaData() {
     try {
         const response = await fetch('data.json');
-        if (!response.ok) throw new Error("Veri dosyası yüklenemedi!");
-        masterData = await response.json();
+        if (!response.ok) throw new Error("Dosya bulunamadı!");
+        allMediaData = await response.json();
         
-        // İlk yüklemede kartları oluştur
-        renderUI(masterData);
-    } catch (err) {
-        console.error("Hata Meydana Geldi:", err);
-        container.innerHTML = `<h2 style='color:red;'>Veri Hatası: ${err.message}</h2>`;
+        // İlk açılışta tüm medyayı göster
+        renderMediaCards(allMediaData);
+    } catch (error) {
+        console.error("Hata:", error);
+        mediaContainer.innerHTML = `<p style="color:red; text-align:center;">Veri yüklenemedi: ${error.message}</p>`;
     }
 }
 
 /**
- * 2. ARAYÜZÜ OLUŞTURMA (RENDER)
+ * 2. EKRANA KARTLARI BASMA
  */
-function renderUI(dataList) {
-    container.innerHTML = ''; // Temizle
+function renderMediaCards(data) {
+    mediaContainer.innerHTML = ''; // Temizle
 
-    if (dataList.length === 0) {
-        container.innerHTML = `<div class="no-results">Aradığınız kriterlere uygun içerik bulunamadı... 🎬</div>`;
+    if (data.length === 0) {
+        mediaContainer.innerHTML = '<div class="no-results">Aradığınız kriterlere uygun sonuç bulunamadı... 🎬</div>';
         return;
     }
 
-    dataList.forEach(item => {
-        const isFav = myFavorites.includes(item.id);
+    data.forEach(item => {
+        const isFavorite = favorites.includes(item.id);
         
-        const cardElement = document.createElement('div');
-        cardElement.className = 'card';
+        const card = document.createElement('div');
+        card.className = 'card';
         
-        cardElement.innerHTML = `
-            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="handleFavorite(event, ${item.id})">
-                ${isFav ? '❤️' : '🤍'}
+        // Kart içeriğini oluştur
+        card.innerHTML = `
+            <button class="fav-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(event, ${item.id})">
+                ${isFavorite ? '❤' : '🤍'}
             </button>
-            <img src="${item.posterUrl}" alt="${item.ad}" onclick="openMovieDetails(${item.id})">
-            <div class="card-info" onclick="openMovieDetails(${item.id})">
+            <img src="${item.posterUrl}" alt="${item.ad}" onclick="showMovieDetails(${item.id})">
+            <div class="card-info" onclick="showMovieDetails(${item.id})">
                 <h3>${item.ad}</h3>
-                <p><strong>Yıl:</strong> ${item.yil} | <span class="rating-star">⭐ ${item.puan}</span></p>
+                <p><strong>Yıl:</strong> ${item.yil}</p>
                 <p><strong>Tür:</strong> ${item.tur}</p>
+                <p class="rating">⭐ ${item.puan}</p>
             </div>
         `;
         
-        container.appendChild(cardElement);
+        mediaContainer.appendChild(card);
     });
 }
 
 /**
- * 3. GELİŞMİŞ SIRALAMA MOTORU (Yeni İstediğin Özellik)
- */
-sortSelect.addEventListener('change', (e) => {
-    const mode = e.target.value;
-    let workingCopy = [...masterData]; // Orijinal veriyi bozmamak için kopyala
-
-    switch (mode) {
-        case 'yil-yeni':
-            workingCopy.sort((a, b) => b.yil - a.yil);
-            break;
-        case 'yil-eski':
-            workingCopy.sort((a, b) => a.yil - b.yil);
-            break;
-        case 'puan-cok':
-            workingCopy.sort((a, b) => b.puan - a.puan);
-            break;
-        case 'puan-az':
-            workingCopy.sort((a, b) => a.puan - b.puan);
-            break;
-        default:
-            workingCopy.sort((a, b) => a.id - b.id);
-    }
-    
-    renderUI(workingCopy);
-});
-
-/**
- * 4. CANLI ARAMA (SEARCH)
+ * 3. ARAMA MOTORU (REAL-TIME)
  */
 searchInput.addEventListener('input', (e) => {
-    const text = e.target.value.toLowerCase().trim();
+    const searchTerm = e.target.value.toLowerCase().trim();
     
-    const results = masterData.filter(m => 
-        m.ad.toLowerCase().includes(text) || 
-        m.oyuncular.toLowerCase().includes(text)
-    );
+    const filteredResults = allMediaData.filter(item => {
+        return item.ad.toLowerCase().includes(searchTerm) || 
+               item.oyuncular.toLowerCase().includes(searchTerm) ||
+               item.tur.toLowerCase().includes(searchTerm);
+    });
     
-    renderUI(results);
+    renderMediaCards(filteredResults);
 });
 
 /**
- * 5. KATEGORİ FİLTRELEME
+ * 4. KATEGORİ FİLTRELEME
  */
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+const filterButtons = document.querySelectorAll('.filter-btn');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Aktif butonu değiştir
         document.querySelector('.filter-btn.active').classList.remove('active');
-        btn.classList.add('active');
+        button.classList.add('active');
         
-        const type = btn.getAttribute('data-genre');
+        const selectedGenre = button.getAttribute('data-genre');
         
-        if (type === 'all') {
-            renderUI(masterData);
-        } else if (type === 'favoriler') {
-            const onlyFavs = masterData.filter(m => myFavorites.includes(m.id));
-            renderUI(onlyFavs);
+        if (selectedGenre === 'all') {
+            renderMediaCards(allMediaData);
+        } else if (selectedGenre === 'favoriler') {
+            const favMovies = allMediaData.filter(m => favorites.includes(m.id));
+            renderMediaCards(favMovies);
         } else {
-            const onlyGenre = masterData.filter(m => m.tur.includes(type));
-            renderUI(onlyGenre);
+            const filtered = allMediaData.filter(m => m.tur.includes(selectedGenre));
+            renderMediaCards(filtered);
         }
     });
 });
 
 /**
- * 6. FAVORİ YÖNETİMİ
+ * 5. SIRALAMA SİSTEMİ (PUAN VE YIL)
  */
-function handleFavorite(event, filmId) {
-    event.stopPropagation(); // Kart tıklamasını durdur
+document.getElementById('sortByPuan').addEventListener('click', () => {
+    const sorted = [...allMediaData].sort((a, b) => b.puan - a.puan);
+    renderMediaCards(sorted);
+});
+
+document.getElementById('sortByYil').addEventListener('click', () => {
+    const sorted = [...allMediaData].sort((a, b) => b.yil - a.yil);
+    renderMediaCards(sorted);
+});
+
+/**
+ * 6. FAVORİ EKLEME / ÇIKARMA
+ */
+function toggleFavorite(event, id) {
+    event.stopPropagation(); // Kart tıklamasını engelle (modal açılmasın)
     
-    const pos = myFavorites.indexOf(filmId);
-    if (pos > -1) {
-        myFavorites.splice(pos, 1);
+    const index = favorites.indexOf(id);
+    if (index > -1) {
+        favorites.splice(index, 1); // Çıkar
     } else {
-        myFavorites.push(filmId);
+        favorites.push(id); // Ekle
     }
     
-    localStorage.setItem('my_fav_list', JSON.stringify(myFavorites));
+    // Güncelle ve Kaydet
+    localStorage.setItem('favorites', JSON.stringify(favorites));
     
-    // Anlık güncelleme için mevcut filtreyi bul ve render et
-    const activeType = document.querySelector('.filter-btn.active').getAttribute('data-genre');
-    if (activeType === 'favoriler') {
-        renderUI(masterData.filter(m => myFavorites.includes(m.id)));
+    // Eğer o an "Favorilerim" sekmesindeysek ekranı hemen güncelle
+    const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-genre');
+    if (activeFilter === 'favoriler') {
+        const favMovies = allMediaData.filter(m => favorites.includes(m.id));
+        renderMediaCards(favMovies);
     } else {
-        renderUI(masterData);
+        renderMediaCards(allMediaData);
     }
 }
 
 /**
- * 7. DETAY MODALINI AÇMA
+ * 7. MODAL (DETAY) PENCERESİ
  */
-function openMovieDetails(id) {
-    const movie = masterData.find(m => m.id === id);
+function showMovieDetails(id) {
+    const movie = allMediaData.find(m => m.id === id);
     if (!movie) return;
 
-    modalBody.innerHTML = `
-        <div class="modal-flex-container">
-            <div class="modal-poster">
+    modalDetails.innerHTML = `
+        <div class="modal-flex">
+            <div class="modal-left">
                 <img src="${movie.posterUrl}" alt="${movie.ad}">
             </div>
-            <div class="modal-info">
+            <div class="modal-right">
                 <h2>${movie.ad}</h2>
                 <p><strong>Yayın Yılı:</strong> ${movie.yil}</p>
                 <p><strong>Kategori:</strong> ${movie.tur}</p>
                 <p><strong>IMDb Puanı:</strong> ⭐ ${movie.puan}</p>
-                <p><strong>Oyuncular:</strong><br>${movie.oyuncular}</p>
-                <hr style="margin:20px 0; border:0; border-top:1px solid #333;">
-                <p><strong>Özet:</strong><br>${movie.ozet}</p>
+                <p><strong>Oyuncular:</strong> ${movie.oyuncular}</p>
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #333;">
+                <p><strong>Konu:</strong><br>${movie.ozet}</p>
             </div>
         </div>
     `;
     
-    modalOverlay.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Arka plan kaymasın
 }
 
-// Modal Kapatma Olayları
+// Modal Kapatma
 closeBtn.onclick = () => {
-    modalOverlay.style.display = 'none';
+    modal.style.display = 'none';
     document.body.style.overflow = 'auto';
 };
 
-window.onclick = (e) => {
-    if (e.target == modalOverlay) {
-        modalOverlay.style.display = 'none';
+window.onclick = (event) => {
+    if (event.target == modal) {
+        modal.style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 };
 
-// UYGULAMAYI BAŞLAT
-initializeApp();
+/**
+ * PROJEYİ BAŞLAT
+ */
+loadMediaData();
