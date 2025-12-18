@@ -51,15 +51,6 @@ manifest.json: Uygulama ikonu, renkleri ve başlatma ayarlarını içeren yapıl
 
 afis/: Filmlere ait görseller.
 
-
-
--Kurulum ve Çalıştırma
-Bu depoyu klonlayın: git clone https://github.com/SauWebProgramming/web-project-zeyneppp-1.git
-
-Proje klasörüne gidin.
-
-index.html dosyasını tarayıcınızda açın veya VS Code Live Server eklentisini kullanın.
-
 !!Duyarlı Tasarım: Mobil, tablet ve masaüstü cihazlarla tam uyumlu arayüz.
 
 
