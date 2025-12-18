@@ -3,40 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İnteraktif Medya Kitaplığı</title>
+    <title>İnteraktif Medya Kitaplığı | Zeynep Çiftçi</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header>
-        <h1>EN ÇOK İZLENEN FİLMLER</h1>
+        <div class="header-container">
+            <h1>EN ÇOK İZLENEN FİLMLER</h1>
+            <div class="search-sort-section">
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="Film, dizi veya oyuncu ara...">
+                </div>
+                
+                <div class="sort-wrapper">
+                    <label for="sortSelect">Sıralama Seçenekleri:</label>
+                    <select id="sortSelect" class="styled-select">
+                        <option value="default">Varsayılan (Önerilen)</option>
+                        <option value="yil-yeni">Yıla Göre (Yeniden Eskiyeye)</option>
+                        <option value="yil-eski">Yıla Göre (Eskiden Yeniye)</option>
+                        <option value="puan-cok">Puan (En Yüksekten En Düşüğe)</option>
+                        <option value="puan-az">Puan (En Düşükten En Yükseğe)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <div class="container">
-        <nav class="navbar">
-            <a href="#" onclick="displayMedia(allMediaData)">Tümü</a>
-            <a href="#" onclick="showFavorites()">Favorilerim</a>
-        </nav>
-
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Film/Dizi Ara...">
+    <nav>
+        <div class="filter-wrapper">
+            <button class="filter-btn active" data-genre="all">Tümü</button>
+            <button class="filter-btn" data-genre="favoriler">❤️ Favorilerim</button>
+            <button class="filter-btn" data-genre="Dram">Dram</button>
+            <button class="filter-btn" data-genre="Animasyon">Animasyon</button>
+            <button class="filter-btn" data-genre="Bilim Kurgu">Bilim Kurgu</button>
+            <button class="filter-btn" data-genre="Komedi">Komedi</button>
+            <button class="filter-btn" data-genre="Aksiyon">Aksiyon</button>
+            <button class="filter-btn" data-genre="Korku">Korku</button>
+            <button class="filter-btn" data-genre="Suç">Suç</button>
         </div>
+    </nav>
 
-        <div class="bonus-controls">
-            <button onclick="sortMedia('puan')" class="bonus-btn">⭐ Puanına Göre Sırala</button>
-            <button onclick="sortMedia('yil')" class="bonus-btn">📅 Yıla Göre Sırala</button>
-            <button onclick="toggleDarkMode()" class="bonus-btn" id="theme-toggle">🌙 Gece Modu</button>
-        </div>
+    <main>
+        <div id="media-container" class="grid-layout"></div>
+    </main>
 
-        <div class="genre-filter-container">
-            </div>
-
-        <div id="media-container" class="media-grid">
-            </div>
-
-        <div id="detail-view" style="display:none;">
-            </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    <div id="movieModal" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal">&times;</span>
+            <div

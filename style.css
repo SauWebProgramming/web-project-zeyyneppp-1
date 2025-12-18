@@ -1,368 +1,306 @@
 
-/* --- 1. TEMEL SIFIRLAMA VE DEĞİŞKENLER --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-behavior: smooth;
-}
-
-:root {
-    --primary-color: #f39c12;
-    --dark-bg: #1a1a1a;
-    --card-bg: #252525;
-    --text-white: #fffafa;
-    --transition-speed: 0.4s;
-    --shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-
-/* Aydınlık Mod Değişkenleri (Bonus) */
-body.light-mode {
-    --dark-bg: #f4f4f4;
-    --card-bg: #ffffff;
-    --text-white: #333333;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--dark-bg);
-    color: var(--text-white);
+    background-color: #141414; /* Koyu tema */
+    color: #ffffff;
     line-height: 1.6;
-    transition: background-color var(--transition-speed), color var(--transition-speed);
+    overflow-x: hidden;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* --- 2. HEADER VE NAVİGASYON --- */
+/* 
+   HEADER VE KONTROLLER
+    */
 header {
-    background: linear-gradient(135deg, #000 0%, #333 100%);
-    padding: 50px 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,1) 100%);
+    padding: 50px 20px;
     text-align: center;
-    border-bottom: 4px solid var(--primary-color);
-    margin-bottom: 40px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-bottom: 2px solid #222;
 }
 
-header h1 {
-    font-size: 3rem;
+h1 {
+    color: #e50914; /* Netflix kırmızısı */
+    font-size: 3.2rem;
+    font-weight: 700;
     letter-spacing: 3px;
-    color: var(--primary-color);
-    text-transform: uppercase;
-}
-
-.navbar {
-    display: flex;
-    gap: 25px;
     margin-bottom: 30px;
-    padding: 10px 0;
-    border-bottom: 1px solid #444;
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.8);
 }
 
-.navbar a {
-    text-decoration: none;
-    color: var(--primary-color);
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: 0.3s;
-}
-
-.navbar a:hover {
-    color: #fff;
-    text-shadow: 0 0 10px var(--primary-color);
-}
-
-/* --- 3. ARAMA VE BONUS KONTROLLER (BOŞLUKLAR DÜZENLENDİ) --- */
-.search-container {
-    margin-bottom: 35px;
-}
-
-#search-input {
-    width: 100%;
-    padding: 18px 25px;
-    font-size: 1.1rem;
-    border-radius: 35px;
-    border: 2px solid #444;
-    background-color: var(--card-bg);
-    color: var(--text-white);
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-#search-input:focus {
-    border-color: var(--primary-color);
-}
-
-.bonus-controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.bonus-btn {
-    padding: 12px 20px;
-    background-color: var(--card-bg);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-}
-
-.bonus-btn:hover {
-    background-color: var(--primary-color);
-    color: #000;
-}
-
-/* --- 4. KATEGORİ FİLTRELERİ --- */
-.genre-filter-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 55px; /* Alt kısımla mesafeyi açtık */
-}
-
-.genre-btn {
-    padding: 10px 25px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.genre-btn:hover {
-    background-color: #444;
-}
-
-.genre-btn.active {
-    background-color: var(--primary-color);
-    color: black;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(243, 156, 18, 0.4);
-}
-
-/* --- 5. MEDYA GRID VE KARTLAR (CSS GRID KULLANILDI) --- */
-.media-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 40px;
-    padding-bottom: 50px;
-}
-
-.media-card {
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid #333;
-    transition: all var(--transition-speed);
+.search-sort-section {
     display: flex;
     flex-direction: column;
-    animation: slideUp 0.6s ease forwards; /* Bonus Animasyon */
+    align-items: center;
+    gap: 25px;
 }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.media-card:hover {
-    transform: translateY(-15px);
-    border-color: var(--primary-color);
-    box-shadow: var(--shadow);
-}
-
-.media-card img {
+/* Arama Kutusu Stili */
+#searchInput {
     width: 100%;
-    height: 400px;
-    object-fit: cover;
-    cursor: pointer;
+    max-width: 550px;
+    padding: 16px 30px;
+    border-radius: 50px;
+    border: 2px solid #333;
+    background-color: #1f1f1f;
+    color: #fff;
+    font-size: 1.1rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card-info {
-    padding: 20px;
-    flex-grow: 1;
+#searchInput:focus {
+    outline: none;
+    border-color: #e50914;
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.4);
+    transform: scale(1.05);
 }
 
-.card-info h3 {
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    font-size: 1.3rem;
+/* Yeni Sıralama Menüsü Stili */
+.sort-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.card-info p {
-    font-size: 0.95rem;
+.sort-wrapper label {
+    font-weight: 500;
     color: #bbb;
 }
 
-body.light-mode .card-info p {
-    color: #555;
-}
-
-/* --- 6. FAVORİ BUTONU --- */
-.favorite-btn {
-    margin: 0 20px 20px 20px;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    background-color: #333;
+.styled-select {
+    background-color: #222;
     color: white;
-    transition: 0.3s;
-}
-
-.favorite-btn:hover {
-    background-color: #e74c3c;
-}
-
-/* --- 7. DETAY SAYFASI (SPA MANTIĞI) --- */
-.detail-view-container {
-    background-color: var(--card-bg);
-    padding: 50px;
-    border-radius: 25px;
-    border: 1px solid var(--primary-color);
-    animation: fadeIn 0.7s ease; /* Bonus Animasyon */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.back-btn {
-    background-color: var(--primary-color);
-    color: black;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 1px solid #e50914;
     cursor: pointer;
-    margin-bottom: 35px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
 }
 
-.detail-header {
+.styled-select:hover {
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+    background-color: #2a2a2a;
+}
+
+/*
+   NAVİGASYON FİLTRELERİ
+   */
+nav {
+    padding: 20px;
+    background-color: #141414;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+.filter-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filter-btn {
+    background-color: #333;
+    color: #efefef;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: #444;
+    transform: translateY(-3px) scale(1.05);
+}
+
+.filter-btn.active {
+    background-color: #e50914;
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+}
+
+/* 
+   FİLM KARTLARI VE EFEKTLER
+   */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 40px;
+    padding: 60px;
+}
+
+.card {
+    background-color: #1a1a1a;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #2a2a2a;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* BÜYÜME VE PARLAMA EFEKTİ */
+.card:hover {
+    transform: scale(1.1) translateY(-20px);
+    border-color: #e50914;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 25px rgba(229, 9, 20, 0.3);
+    z-index: 100;
+}
+
+/* Beyaz Işık Parlaması */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+    transform: skewX(-20deg);
+    transition: 0.8s;
+}
+
+.card:hover::after {
+    left: 150%;
+}
+
+.card img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.card:hover img {
+    filter: brightness(1.15);
+}
+
+.card-info {
+    padding: 25px;
+    background: linear-gradient(180deg, rgba(26,26,26,0) 0%, rgba(26,26,26,1) 30%);
+}
+
+.card-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rating-star {
+    color: #ffb400;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+/* FAVORİ BUTONU */
+.fav-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.1);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.4s ease;
+}
+
+.fav-btn.active {
+    background-color: #e50914;
+    border-color: #e50914;
+    transform: rotate(360deg) scale(1.1);
+}
+
+/*
+   DETAY PENCERESİ (MODAL)
+   */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.96);
+    backdrop-filter: blur(12px);
+}
+
+.modal-box {
+    background-color: #111;
+    margin: 40px auto;
+    padding: 50px;
+    width: 90%;
+    max-width: 950px;
+    border-radius: 25px;
+    position: relative;
+    border: 1px solid #e50914;
+    animation: zoomIn 0.5s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute;
+    right: 30px; top: 15px;
+    font-size: 45px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.modal-flex-container {
     display: flex;
     gap: 50px;
-    margin-bottom: 40px;
+    align-items: flex-start;
 }
 
-.detail-header img {
+.modal-poster img {
     width: 350px;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0,0,0,1);
 }
 
-.info-side h1 {
+.modal-info h2 {
     font-size: 3rem;
-    color: var(--primary-color);
+    color: #e50914;
     margin-bottom: 25px;
 }
 
-.cast-section {
-    margin-top: 30px;
-    padding: 25px;
-    background-color: rgba(243, 156, 18, 0.08);
-    border-left: 6px solid var(--primary-color);
-    border-radius: 10px;
+.modal-info p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #ddd;
 }
 
-.detail-summary h2 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 150px;
+    font-size: 1.8rem;
+    color: #555;
 }
 
-.detail-summary p {
-    font-size: 1.2rem;
-    line-height: 1.9;
-    text-align: justify;
-}
-
-/* --- 8. DUYARLI TASARIM (RESPONSIVE) --- */
-@media (max-width: 992px) {
-    .detail-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .detail-header img {
-        width: 100%;
-        max-width: 400px;
-    }
-}
-
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 2rem;
-    }
-    
-    .media-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .detail-view-container {
-        padding: 20px;
-    }
-}
-
-/* Scrollbar Tasarımı */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--dark-bg);
-}
-
-::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
-}
-/* --- BONUS: GELİŞMİŞ CSS ANİMASYONLARI --- */
-
-/* Kartların sayfaya sırayla gelmesi için giriş efekti */
-.media-card {
-    opacity: 0;
-    animation: cardEntrance 0.6s ease-out forwards;
-}
-
-@keyframes cardEntrance {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Detay sayfası açılırken yumuşak büyüme efekti */
-.detail-view-container {
-    animation: detailPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes detailPop {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* Görselin üzerine gelindiğinde parlaması (Bonus UX) */
-.media-card:hover img {
-    filter: brightness(1.1);
-    transform: scale(1.05);
-    transition: transform 0.4s ease, filter 0.4s ease;
+/* 
+   MOBİL AYARLAR
+   */
+@media (max-width: 900px) {
+    .modal-flex-container { flex-direction: column; text-align: center; }
+    .modal-poster img { width: 100%; max-width: 280px; }
+    .modal-box { padding: 30px; height: 95vh; overflow-y: auto; }
 }

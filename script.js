@@ -1,229 +1,193 @@
-/**
- * BST-207 WEB PROGRAMLAMA VE TASARIMI 1 - PROJE ÖDEVİ [cite: 1, 2]
- * Seçenek 1: İnteraktif Medya Kitaplığı (SPA) [cite: 20]
- */
 
-// 1. GLOBAL DEĞİŞKENLER
-let allMediaData = []; // Tüm film verilerini tutan ana liste 
-let currentFilter = 'Hepsi'; // Aktif kategori filtresi [cite: 24]
+
+let masterData = []; // Ana veritabanı
+let myFavorites = JSON.parse(localStorage.getItem('my_fav_list')) || []; // Yerel depolama
+
+// HTML Elemanları
+const container = document.getElementById('media-container');
+const searchInput = document.getElementById('searchInput');
+const sortSelect = document.getElementById('sortSelect');
+const modalOverlay = document.getElementById('movieModal');
+const modalBody = document.getElementById('modal-details-content');
+const closeBtn = document.querySelector('.close-modal');
 
 /**
- * 2. VERİ ÇEKME (FETCH API)
- * Ödev Gereksinimi: Yerel JSON dosyasından fetch ile veri okuma.
+ * 1. VERI YÜKLEME (DATA FETCH)
  */
-async function fetchMedia() {
+async function initializeApp() {
     try {
-        // 'data.json' dosyasından asenkron veri çekme [cite: 10, 66, 67]
         const response = await fetch('data.json');
+        if (!response.ok) throw new Error("Veri dosyası yüklenemedi!");
+        masterData = await response.json();
         
-        if (!response.ok) {
-            throw new Error('Veri dosyası (data.json) yüklenemedi! Dosya adını ve yolunu kontrol edin.');
-        }
-
-        // Gelen veriyi işle [cite: 68]
-        allMediaData = await response.json();
-        
-        // İlk açılışta tüm medyaları ekrana bas [cite: 23, 68]
-        displayMedia(allMediaData);
-        
-        // Kategorileri (türleri) dinamik olarak oluştur [cite: 24]
-        generateGenreButtons();
-
-    } catch (error) {
-        console.error("Fetch Hatası:", error);
-        const container = document.getElementById('media-container');
-        if(container) {
-            container.innerHTML = `<p style="color:red; text-align:center;">Hata: ${error.message}</p>`;
-        }
+        // İlk yüklemede kartları oluştur
+        renderUI(masterData);
+    } catch (err) {
+        console.error("Hata Meydana Geldi:", err);
+        container.innerHTML = `<h2 style='color:red;'>Veri Hatası: ${err.message}</h2>`;
     }
 }
 
 /**
- * 3. MEDYA LİSTELEME (DOM MANIPULATION)
- * Tüm medyaların kartlar halinde gösterilmesi[cite: 23].
+ * 2. ARAYÜZÜ OLUŞTURMA (RENDER)
  */
-function displayMedia(data) {
-    const container = document.getElementById('media-container');
-    const detailView = document.getElementById('detail-view');
-    
-data.forEach((media, index) => { // 'index' parametresinin burada olduğundan emin ol
-    const isFav = checkFavorite(media.id);
-    const card = document.createElement('div');
-    card.className = `media-card`;
+function renderUI(dataList) {
+    container.innerHTML = ''; // Temizle
 
-    card.style.animationDelay = `${index * 0.05}s`; 
-    
-    card.innerHTML = `
-        <img src="${media.posterUrl}" alt="${media.ad}" onclick="displayDetails(${media.id})">
-        `;
-    container.appendChild(card);
-});
-// ... (alttaki kodlar)
-    if(container && detailView) {
-        container.style.display = 'grid';
-        detailView.style.display = 'none';
-        container.innerHTML = '';
-    }
-
-    if (data.length === 0) {
-        container.innerHTML = '<p style="color:white; grid-column: 1/-1; text-align:center;">Sonuç bulunamadı.</p>';
+    if (dataList.length === 0) {
+        container.innerHTML = `<div class="no-results">Aradığınız kriterlere uygun içerik bulunamadı... 🎬</div>`;
         return;
     }
 
-    // Her medya için dinamik kart oluşturma [cite: 23]
-    data.forEach(media => {
-        const isFav = checkFavorite(media.id);
-        const card = document.createElement('div');
-        card.className = `media-card ${isFav ? 'is-favorite' : ''}`;
+    dataList.forEach(item => {
+        const isFav = myFavorites.includes(item.id);
         
-        card.innerHTML = `
-            <img src="${media.posterUrl}" alt="${media.ad}" onclick="displayDetails(${media.id})" onerror="this.src='https://via.placeholder.com/300x450?text=Resim+Yok'">
-            <div class="card-info" onclick="displayDetails(${media.id})">
-                <h3>${media.ad}</h3>
-                <p><strong>Tür:</strong> ${media.tur}</p>
-                <p><strong>Yıl:</strong> ${media.yil} | ⭐ ${media.puan}</p>
-            </div>
-            <button class="favorite-btn" onclick="toggleFavorite(${media.id})">
-                ${isFav ? '❤️ Favorilerden Çıkar' : '🤍 Favorilere Ekle'}
+        const cardElement = document.createElement('div');
+        cardElement.className = 'card';
+        
+        cardElement.innerHTML = `
+            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="handleFavorite(event, ${item.id})">
+                ${isFav ? '❤️' : '🤍'}
             </button>
+            <img src="${item.posterUrl}" alt="${item.ad}" onclick="openMovieDetails(${item.id})">
+            <div class="card-info" onclick="openMovieDetails(${item.id})">
+                <h3>${item.ad}</h3>
+                <p><strong>Yıl:</strong> ${item.yil} | <span class="rating-star">⭐ ${item.puan}</span></p>
+                <p><strong>Tür:</strong> ${item.tur}</p>
+            </div>
         `;
-        container.appendChild(card);
+        
+        container.appendChild(cardElement);
     });
 }
 
 /**
- * 4. DETAY SAYFASI (SINGLE PAGE APPLICATION)
- * Sayfa yenilenmeden detayların gösterilmesi[cite: 25, 26].
+ * 3. GELİŞMİŞ SIRALAMA MOTORU (Yeni İstediğin Özellik)
  */
-function displayDetails(mediaId) {
-    const media = allMediaData.find(m => m.id === mediaId);
-    if (!media) return;
+sortSelect.addEventListener('change', (e) => {
+    const mode = e.target.value;
+    let workingCopy = [...masterData]; // Orijinal veriyi bozmamak için kopyala
 
-    const container = document.getElementById('media-container');
-    const detailView = document.getElementById('detail-view');
+    switch (mode) {
+        case 'yil-yeni':
+            workingCopy.sort((a, b) => b.yil - a.yil);
+            break;
+        case 'yil-eski':
+            workingCopy.sort((a, b) => a.yil - b.yil);
+            break;
+        case 'puan-cok':
+            workingCopy.sort((a, b) => b.puan - a.puan);
+            break;
+        case 'puan-az':
+            workingCopy.sort((a, b) => a.puan - b.puan);
+            break;
+        default:
+            workingCopy.sort((a, b) => a.id - b.id);
+    }
+    
+    renderUI(workingCopy);
+});
 
-    // Görünürlüğü değiştir (SPA) [cite: 26, 32]
-    container.style.display = 'none';
-    detailView.style.display = 'block';
-    window.scrollTo(0, 0);
+/**
+ * 4. CANLI ARAMA (SEARCH)
+ */
+searchInput.addEventListener('input', (e) => {
+    const text = e.target.value.toLowerCase().trim();
+    
+    const results = masterData.filter(m => 
+        m.ad.toLowerCase().includes(text) || 
+        m.oyuncular.toLowerCase().includes(text)
+    );
+    
+    renderUI(results);
+});
 
-    detailView.innerHTML = `
-        <div class="detail-view-container">
-            <button class="back-btn" onclick="displayMedia(allMediaData)">← Geri Dön</button>
-            <div class="detail-header">
-                <img src="${media.posterUrl}" alt="${media.ad}">
-                <div class="info-side">
-                    <h1>${media.ad}</h1>
-                    <p><strong>Yıl:</strong> ${media.yil}</p>
-                    <p><strong>Tür:</strong> ${media.tur}</p>
-                    <p><strong>Puan:</strong> ⭐ ${media.puan} / 10</p>
-                    <div class="cast-section">
-                        <strong>🎬 Oyuncu Kadrosu:</strong>
-                        <p>${media.oyuncular}</p>
-                    </div>
-                </div>
+/**
+ * 5. KATEGORİ FİLTRELEME
+ */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelector('.filter-btn.active').classList.remove('active');
+        btn.classList.add('active');
+        
+        const type = btn.getAttribute('data-genre');
+        
+        if (type === 'all') {
+            renderUI(masterData);
+        } else if (type === 'favoriler') {
+            const onlyFavs = masterData.filter(m => myFavorites.includes(m.id));
+            renderUI(onlyFavs);
+        } else {
+            const onlyGenre = masterData.filter(m => m.tur.includes(type));
+            renderUI(onlyGenre);
+        }
+    });
+});
+
+/**
+ * 6. FAVORİ YÖNETİMİ
+ */
+function handleFavorite(event, filmId) {
+    event.stopPropagation(); // Kart tıklamasını durdur
+    
+    const pos = myFavorites.indexOf(filmId);
+    if (pos > -1) {
+        myFavorites.splice(pos, 1);
+    } else {
+        myFavorites.push(filmId);
+    }
+    
+    localStorage.setItem('my_fav_list', JSON.stringify(myFavorites));
+    
+    // Anlık güncelleme için mevcut filtreyi bul ve render et
+    const activeType = document.querySelector('.filter-btn.active').getAttribute('data-genre');
+    if (activeType === 'favoriler') {
+        renderUI(masterData.filter(m => myFavorites.includes(m.id)));
+    } else {
+        renderUI(masterData);
+    }
+}
+
+/**
+ * 7. DETAY MODALINI AÇMA
+ */
+function openMovieDetails(id) {
+    const movie = masterData.find(m => m.id === id);
+    if (!movie) return;
+
+    modalBody.innerHTML = `
+        <div class="modal-flex-container">
+            <div class="modal-poster">
+                <img src="${movie.posterUrl}" alt="${movie.ad}">
             </div>
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #f39c12;">
-            <div class="detail-summary">
-                <h2>Özet</h2>
-                <p>${media.ozet}</p>
+            <div class="modal-info">
+                <h2>${movie.ad}</h2>
+                <p><strong>Yayın Yılı:</strong> ${movie.yil}</p>
+                <p><strong>Kategori:</strong> ${movie.tur}</p>
+                <p><strong>IMDb Puanı:</strong> ⭐ ${movie.puan}</p>
+                <p><strong>Oyuncular:</strong><br>${movie.oyuncular}</p>
+                <hr style="margin:20px 0; border:0; border-top:1px solid #333;">
+                <p><strong>Özet:</strong><br>${movie.ozet}</p>
             </div>
         </div>
     `;
+    
+    modalOverlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
 }
 
-/**
- * 5. FAVORİLERİM (LOCAL STORAGE)
- * Seçilen medyaların localStorage'da saklanması[cite: 11, 28, 70].
- */
-function toggleFavorite(id) {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    
-    if (favorites.includes(id)) {
-        favorites = favorites.filter(favId => favId !== id);
-    } else {
-        favorites.push(id);
+// Modal Kapatma Olayları
+closeBtn.onclick = () => {
+    modalOverlay.style.display = 'none';
+    document.body.style.overflow = 'auto';
+};
+
+window.onclick = (e) => {
+    if (e.target == modalOverlay) {
+        modalOverlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
-    
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-    applyFilters(); // Mevcut görünümü güncelle
-}
+};
 
-function checkFavorite(id) {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    return favorites.includes(id);
-}
-
-// Favorilerim butonuna basıldığında sadece favorileri listele [cite: 28]
-function showFavorites() {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const favoriteMedia = allMediaData.filter(m => favorites.includes(m.id));
-    displayMedia(favoriteMedia);
-}
-
-/**
- * 6. ARAMA, FİLTRELEME VE SIRALAMA [cite: 24]
- */
-function applyFilters() {
-    const searchInput = document.getElementById('search-input');
-    const term = searchInput ? searchInput.value.toLowerCase() : '';
-    
-    const filtered = allMediaData.filter(media => {
-        const matchesSearch = media.ad.toLowerCase().includes(term);
-        const matchesGenre = (currentFilter === 'Hepsi' || media.tur === currentFilter);
-        return matchesSearch && matchesGenre;
-    });
-    
-    displayMedia(filtered);
-}
-
-// BONUS: Sıralama Fonksiyonu [cite: 93]
-function sortMedia(kriter) {
-    let sorted = [...allMediaData];
-    if (kriter === 'puan') {
-        sorted.sort((a, b) => b.puan - a.puan);
-    } else if (kriter === 'yil') {
-        sorted.sort((a, b) => b.yil - a.yil);
-    }
-    displayMedia(sorted);
-}
-
-// BONUS: Gece Modu [cite: 93]
-function toggleDarkMode() {
-    document.body.classList.toggle('light-mode');
-    const btn = document.getElementById('theme-toggle');
-    if(btn) {
-        btn.innerText = document.body.classList.contains('light-mode') ? "☀️ Aydınlık Mod" : "🌙 Gece Modu";
-    }
-}
-
-/**
- * 7. DİNAMİK KATEGORİ BUTONLARI
- */
-function generateGenreButtons() {
-    const container = document.querySelector('.genre-filter-container');
-    if (!container) return;
-
-    const genres = ['Hepsi', ...new Set(allMediaData.map(m => m.tur))];
-    container.innerHTML = '';
-    
-    genres.forEach(genre => {
-        const btn = document.createElement('button');
-        btn.className = `genre-btn ${genre === currentFilter ? 'active' : ''}`;
-        btn.innerText = genre;
-        btn.onclick = () => {
-            currentFilter = genre;
-            // Aktif buton görselini güncelle
-            document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            applyFilters();
-        };
-        container.appendChild(btn);
-    });
-}
-
-// Olay Dinleyicileri (Event Listeners)
-document.getElementById('search-input')?.addEventListener('input', applyFilters);
-
-// Uygulamayı Başlat
-fetchMedia();
+// UYGULAMAYI BAŞLAT
+initializeApp();
