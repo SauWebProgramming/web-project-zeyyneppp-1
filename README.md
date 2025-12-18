@@ -37,6 +37,7 @@ JSON: Veritabanı ve yapılandırılmış veri seti.
 Web Manifest: Uygulamanın mobil uyumluluğu ve tarayıcı ayarları için manifest.json kullanımı.
 
 
+
 - Dosya Yapısı 
 index.html: Uygulamanın ana giriş noktası.
 
@@ -48,7 +49,8 @@ data.json: Medya içeriklerine ait veriler.
 
 manifest.json: Uygulama ikonu, renkleri ve başlatma ayarlarını içeren yapılandırma dosyası.
 
-afis/: Film ve dizilere ait görseller.
+afis/: Filmlere ait görseller.
+
 
 
 -Kurulum ve Çalıştırma
@@ -58,7 +60,7 @@ Proje klasörüne gidin.
 
 index.html dosyasını tarayıcınızda açın veya VS Code Live Server eklentisini kullanın.
 
-Duyarlı Tasarım: Mobil, tablet ve masaüstü cihazlarla tam uyumlu arayüz.
+!!Duyarlı Tasarım: Mobil, tablet ve masaüstü cihazlarla tam uyumlu arayüz.
 
 
 - Proje Yapısı
