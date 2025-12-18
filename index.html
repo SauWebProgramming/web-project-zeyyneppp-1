@@ -3,36 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İnteraktif Medya Kitaplığı (SPA)</title>
+    <title>İnteraktif Medya Kitaplığı</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
     <header>
         <h1>EN ÇOK İZLENEN FİLMLER</h1>
     </header>
 
-    <main class="container">
-        <div id="app-content">
-            <div class="navbar">
-                <a href="#" id="show-all" class="active">Tümü</a>
-                <a href="#" id="show-favorites">Favorilerim</a>
-            </div>
-            
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Film/Dizi Ara...">
-            </div>
+    <div class="container">
+        <nav class="navbar">
+            <a href="#" onclick="displayMedia(allMediaData)">Tümü</a>
+            <a href="#" onclick="showFavorites()">Favorilerim</a>
+        </nav>
 
-            <div class="genre-filter-container" id="genre-filter-container"></div>
-            
-            <section id="media-container" class="media-grid"></section>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Film/Dizi Ara...">
         </div>
 
-        <section id="detail-view" class="detail-view-container" style="display: none;"></section>
-    </main>
+        <div class="bonus-controls">
+            <button onclick="sortMedia('puan')" class="bonus-btn">⭐ Puanına Göre Sırala</button>
+            <button onclick="sortMedia('yil')" class="bonus-btn">📅 Yıla Göre Sırala</button>
+            <button onclick="toggleDarkMode()" class="bonus-btn" id="theme-toggle">🌙 Gece Modu</button>
+        </div>
+
+        <div class="genre-filter-container">
+            </div>
+
+        <div id="media-container" class="media-grid">
+            </div>
+
+        <div id="detail-view" style="display:none;">
+            </div>
+    </div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
-
