@@ -207,7 +207,7 @@ window.onscroll = function() {
     }
 };
 
-backToTopBtn.addEventListener("click", () => {
+topBtn.addEventListener("click", () => {
     window.scrollTo({
         top: 0,
         behavior: "smooth" // Yumuşak geçiş
