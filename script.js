@@ -218,3 +218,4 @@ backToTopBtn.addEventListener("click", () => {
  * PROJEYİ BAŞLAT
  */
 loadMediaData();
+
