@@ -1,8 +1,3 @@
-/**
- * ************************************************************
- * INTERAKTIF MEDYA KITAPLIGI - JAVASCRIPT MOTORU
- * ************************************************************
- */
 
 let allMediaData = []; // Veri setini tutar
 let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Favorileri LocalStorage'dan çeker
@@ -197,6 +192,8 @@ window.onclick = (event) => {
         document.body.style.overflow = 'auto';
     }
 };
+document.addEventListener('DOMContentLoaded', () => {
+    // Mevcut tüm kodların (değişkenler, event listenerlar ve LoadMediaData) burada olmalı
 const backToTopBtn = document.getElementById("backToTop");
 
 window.onscroll = function() {
@@ -218,4 +215,4 @@ backToTopBtn.addEventListener("click", () => {
  * PROJEYİ BAŞLAT
  */
 loadMediaData();
-
+} );
