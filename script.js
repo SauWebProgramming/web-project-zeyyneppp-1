@@ -108,9 +108,21 @@ filterButtons.forEach(button => {
 
 /**
  * 5. SIRALAMA SİSTEMİ (PUAN VE YIL)
- */
+// Puana Göre Sırala Butonu
 document.getElementById('sortByPuan').addEventListener('click', () => {
-    const sorted = [...allMediaData].sort((a, b) => b.puan - a.puan);
+    const order = document.getElementById('sortOrder').value;
+    const sorted = [...allMediaData].sort((a, b) => {
+        return order === 'desc' ? b.puan - a.puan : a.puan - b.puan;
+    });
+    renderMediaCards(sorted);
+});
+
+// Yıla Göre Sırala Butonu
+document.getElementById('sortByYil').addEventListener('click', () => {
+    const order = document.getElementById('sortOrder').value;
+    const sorted = [...allMediaData].sort((a, b) => {
+        return order === 'desc' ? b.yil - a.yil : a.yil - b.yil;
+    });
     renderMediaCards(sorted);
 });
 
