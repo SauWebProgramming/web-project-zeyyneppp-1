@@ -7,7 +7,7 @@ Bu proje, BST-207 Web Programlama ve Tasarımı 1 dersi kapsamında geliştirilm
 Canlı Önizleme (GitHub Pages):  
 [Canlı Önizleme için Tıklayın](https://sauwebprogramming.github.io/web-project-zeyyneppp-1/)
 
-Video Sunumu (YouTube):
+Video Sunumu (YouTube): https://www.youtube.com/watch?v=eSD8EaQ1alA
 
 
 
